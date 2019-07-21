@@ -10,10 +10,14 @@ X = melb_data.drop(['Price'], axis=1)
 X_train_full, X_valid_full, y_train, y_valid = train_test_split(X, y, train_size=0.8, test_size=0.2, random_state=0)
 
 cols_with_missing_values = [col for col in X_train_full.columns if X_train_full[col].isnull().any()]
+print('Original columns: ', X_train_full.columns)
+print('Columns with missing values: ', cols_with_missing_values)
 
 # Drop columns with missing values (for simplicity)
 X_train_full.drop(cols_with_missing_values, axis=1, inplace=True)
 X_valid_full.drop(cols_with_missing_values, axis=1, inplace=True)
+
+print('After dropped columns: ', X_train_full.columns)
 
 # Select categorical columns with low cardinality
 low_cardinality_cols = [cname for cname in X_train_full.columns if X_train_full[cname].nunique() < 10 and X_train_full[cname].dtype == 'object']
